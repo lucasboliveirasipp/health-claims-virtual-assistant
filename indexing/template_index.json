@@ -1,0 +1,76 @@
+{
+    "name": "template",
+    "fields": [
+        {
+            "name": "id",
+            "type": "Edm.String",
+            "key": true,
+            "filterable": true,
+            "sortable": false,
+            "facetable": false
+        }
+    ],
+    "similarity": {
+        "@odata.type": "#Microsoft.Azure.Search.BM25Similarity",
+        "k1": null,
+        "b": null
+    },
+    "semantic": {
+        "defaultConfiguration": null,
+        "configurations": [
+            {
+                "name": "semantic-template",
+                "prioritizedFields": {
+                    "titleField": {
+                        "fieldName": "content"
+                    },
+                    "prioritizedContentFields": [
+                        {
+                            "fieldName": "content"
+                        }
+                    ],
+                    "prioritizedKeywordsFields": [
+                        {
+                            "fieldName": "content"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "vectorSearch": {
+        "algorithms": [
+            {
+                "name": "vector-config-1700855430859",
+                "kind": "hnsw",
+                "hnswParameters": {
+                    "metric": "cosine",
+                    "m": 4,
+                    "efConstruction": 400,
+                    "efSearch": 500
+                },
+                "exhaustiveKnnParameters": null
+            }
+        ],
+        "profiles": [
+            {
+                "name": "vector-profile-1700855443968",
+                "algorithm": "vector-config-1700855430859",
+                "vectorizer": "vectorizer-1700855448242"
+            }
+        ],
+        "vectorizers": [
+            {
+                "name": "vectorizer-1700855448242",
+                "kind": "azureOpenAI",
+                "azureOpenAIParameters": {
+                    "resourceUri": "https://seu-recurso.openai.azure.com",
+                    "deploymentId": "embedding",
+                    "apiKey": "SUA_CHAVE_OPENAI",
+                    "authIdentity": null
+                },
+                "customWebApiParameters": null
+            }
+        ]
+    }
+}
